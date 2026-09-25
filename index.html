@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Grocery Price Comparison — Malaysia</title>
+<meta name="description" content="Build a basket of common groceries and household items and compare total cost across Lotus's, Jaya Grocer, AEON, Village Grocer and NSK." />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="brand-mark">🛒</span>
+        <span class="brand-name">Grocery Price Compare <span class="brand-sub">Malaysia</span></span>
+      </div>
+      <nav class="tabs" role="tablist" aria-label="Main sections">
+        <button class="tab-btn" data-tab="home" role="tab" aria-selected="true">Home</button>
+        <button class="tab-btn" data-tab="shop" role="tab" aria-selected="false">Shop</button>
+        <button class="tab-btn" data-tab="compare" role="tab" aria-selected="false">Compare</button>
+        <button class="tab-btn" data-tab="list" role="tab" aria-selected="false">Shopping List</button>
+      </nav>
+      <button class="basket-pill" id="basketPill" aria-label="View basket">
+        <span class="basket-icon">🧺</span>
+        <span id="basketCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME ------------------------------------------------------------ -->
+    <section id="tab-home" class="tab-panel" data-panel="home">
+      <div class="panel-inner">
+        <h1>Compare grocery prices across Malaysia's supermarkets</h1>
+        <p class="lede">
+          Pick the items you'd normally buy, and see which store — or mix of stores —
+          gets you the lowest total. Prices are a starter dataset for you to keep updated
+          (see the README in the repo).
+        </p>
+        <div class="stat-row" id="statRow"></div>
+
+        <h2 class="section-heading">Stores compared</h2>
+        <div class="store-chip-row" id="storeChipRow"></div>
+
+        <h2 class="section-heading">Categories</h2>
+        <div class="category-grid" id="categoryGrid"></div>
+
+        <p class="last-synced" id="lastSyncedLine"></p>
+      </div>
+    </section>
+
+    <!-- SHOP ------------------------------------------------------------ -->
+    <section id="tab-shop" class="tab-panel" data-panel="shop" hidden>
+      <div class="panel-inner">
+        <div class="shop-header">
+          <h1>Build your basket</h1>
+          <input type="search" id="itemSearch" placeholder="Search items…" aria-label="Search items" />
+        </div>
+        <div id="shopCategories"></div>
+      </div>
+    </section>
+
+    <!-- COMPARE --------------------------------------------------------- -->
+    <section id="tab-compare" class="tab-panel" data-panel="compare" hidden>
+      <div class="panel-inner">
+        <h1>Compare total basket cost</h1>
+        <div id="compareEmpty" class="empty-state" hidden>
+          <p>Your basket is empty. Add items in the <button class="link-btn" data-goto="shop">Shop</button> tab to see a comparison.</p>
+        </div>
+        <div id="compareContent">
+          <div class="store-total-grid" id="storeTotalGrid"></div>
+          <h2 class="section-heading">Item by item</h2>
+          <div class="table-wrap">
+            <table class="price-table" id="itemPriceTable">
+              <thead><tr id="itemPriceTableHead"></tr></thead>
+              <tbody id="itemPriceTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SHOPPING LIST ----------------------------------------------------- -->
+    <section id="tab-list" class="tab-panel" data-panel="list" hidden>
+      <div class="panel-inner">
+        <h1>Shopping list by store</h1>
+        <p class="lede">Each item is assigned to whichever store has the lowest price for it. When two or more stores tie, the item is listed separately under "Tied — pick any."</p>
+        <div id="listEmpty" class="empty-state" hidden>
+          <p>Your basket is empty. Add items in the <button class="link-btn" data-goto="shop">Shop</button> tab to build a shopping list.</p>
+        </div>
+        <div id="listContent"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- BASKET DRAWER -->
+  <aside class="basket-drawer" id="basketDrawer" aria-hidden="true">
+    <div class="basket-drawer-inner">
+      <div class="basket-drawer-header">
+        <h2>Your basket</h2>
+        <button class="icon-btn" id="closeBasket" aria-label="Close basket">✕</button>
+      </div>
+      <div id="basketItems" class="basket-items"></div>
+      <div class="basket-drawer-footer">
+        <button class="btn btn-ghost" id="clearBasket">Clear basket</button>
+        <button class="btn btn-primary" id="viewCompareBtn">Compare stores →</button>
+      </div>
+    </div>
+  </aside>
+  <div class="basket-backdrop" id="basketBackdrop" hidden></div>
+
+  <footer class="site-footer">
+    <div class="panel-inner">
+      <p>Built with a manually curated price dataset — see <code>data.js</code> and the README for how to keep prices current.</p>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
